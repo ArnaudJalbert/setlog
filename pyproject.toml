@@ -1,0 +1,7 @@
+[project]
+name = "setlog"
+version = "0.1.0"
+description = "An application to log and track the music you listen to."
+readme = "README.md"
+requires-python = ">=3.13"
+dependencies = []
