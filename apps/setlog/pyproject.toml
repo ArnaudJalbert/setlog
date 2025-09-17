@@ -1,0 +1,32 @@
+[project]
+name = "setlog"
+version = "0.1.0"
+description = "An application to log and track the music you listen to."
+readme = "README.md"
+requires-python = ">=3.13"
+dependencies = []
+
+[dependency-groups]
+dev = [
+    "isort>=6.0.1",
+    "pytest>=8.4.2",
+    "pytest-cov>=7.0.0",
+    "ruff>=0.13.0",
+]
+
+# tell uv where the source code is
+[tool.pytest.ini_options]
+pythonpath = ["./src"]
+
+[tool.ruff]
+line-length = 88
+
+[tool.ruff.lint]
+extend-select = [
+    "E501", # line too long
+    "ANN", # flake8 type check
+    "N", # pep8 naming convention
+    "R", # pylint refactor rules
+    "I", # isort
+]
+ignore = []
