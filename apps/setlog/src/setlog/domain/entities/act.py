@@ -13,7 +13,7 @@ class Act(ABC):
     is to perform musically.
 
     It is defined as an abstract class that cannot be instantiated directly
-    and must be subclassedby a concrete implementation.
+    and must be subclassed by a concrete implementation.
 
     The Act entity encapsulates the common attributes and behaviors shared by all
     types of musical performers,such as solo artists, bands, orchestras,
