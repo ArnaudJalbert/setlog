@@ -16,7 +16,7 @@ class Act(ABC):
     and must be subclassed by a concrete implementation.
 
     The Act entity encapsulates the common attributes and behaviors shared by all
-    types of musical performers,such as solo artists, bands, orchestras,
+    types of musical performers, such as solo artists, bands, orchestras,
     and other musical entities.
 
     Attributes:
