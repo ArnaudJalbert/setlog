@@ -23,9 +23,9 @@ class Act(ABC):
         id (ID): A unique identifier for the act.
         name (Name): The name of the act.
         description (Description): A brief description of the act.
-        aliases (set[str]): A set of alternative names or aliases for the act.
-        genres (set[str]): A set of musical genres associated with the act.
-        labels (set[str]): A set of record labels associated with the act.
+        aliases (list[str]): A list of alternative names or aliases for the act.
+        genres (list[Genre]): A list of musical genres associated with the act.
+        labels (list[Label]): A list of record labels associated with the act.
         origin (Location | None): The geographical origin of the act,
         it can be None if unknown.
     """
