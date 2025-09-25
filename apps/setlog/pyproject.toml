@@ -9,6 +9,7 @@ dependencies = []
 [dependency-groups]
 dev = [
     "isort>=6.0.1",
+    "mkdocs>=1.6.1",
     "pytest>=8.4.2",
     "pytest-cov>=7.0.0",
     "ruff>=0.13.0",
