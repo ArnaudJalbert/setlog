@@ -4,7 +4,7 @@ on:
     branches:
       - main
 jobs:
-  setlog-check_pyproject_toml_changes:
+  setlog_check_pyproject_toml_changes:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
@@ -25,7 +25,7 @@ jobs:
           else
             echo "Changes detected in pyproject.toml. Proceeding..."
           fi
-  setlog-check_changes_md_changes:
+  setlog_check_changes_md_changes:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
@@ -40,30 +40,30 @@ jobs:
           else
             echo "Changes detected in CHANGES.md. Proceeding..."
           fi
-  setlog-lock_file:
+  setlog_lock_file:
     runs-on: ubuntu-latest
-    needs: [ setlog-check_pyproject_toml_changes, setlog-check_changes_md_changes ]
+    needs: [ setlog_check_pyproject_toml_changes, setlog_check_changes_md_changes ]
     steps:
       - uses: actions/checkout@v4
       - uses: ./.github/actions/setup
       - run: cd ./apps/setlog/; uv lock --locked
-  setlog-ruff_check:
+  setlog_ruff_check:
     runs-on: ubuntu-latest
-    needs: [setlog-lock_file]
+    needs: [setlog_lock_file]
     steps:
       - uses: actions/checkout@v4
       - uses: ./.github/actions/setup
       - run: uv run ruff check ./apps/setlog/
-  setlog-ruff_format:
+  setlog_ruff_format:
     runs-on: ubuntu-latest
-    needs: [lock_file]
+    needs: [setlog_lock_file]
     steps:
       - uses: actions/checkout@v4
       - uses: ./.github/actions/setup
       - run: uv run ruff format ./apps/setlog/
-  setlog-unit_tests:
+  setlog_unit_tests:
     runs-on: ubuntu-latest
-    needs: [ lock_file ]
+    needs: [ setlog_lock_file ]
     steps:
       - uses: actions/checkout@v4
       - uses: ./.github/actions/setup
@@ -72,9 +72,9 @@ jobs:
         uses: codecov/codecov-action@v4
         with:
           token: ${{ secrets.CODECOV_TOKEN }}
-  setlog-build:
+  setlog_build:
     runs-on: [ ubuntu-latest ]
-    needs: [ setlog-ruff_check, setlog-ruff_format, setlog-unit_tests]
+    needs: [ setlog_ruff_check, setlog_ruff_format, setlog_unit_tests]
     steps:
       - uses: actions/checkout@v4
       - uses: ./.github/actions/setup
