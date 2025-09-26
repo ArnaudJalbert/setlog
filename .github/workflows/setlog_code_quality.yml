@@ -40,7 +40,7 @@ jobs:
           else
             echo "Changes detected in CHANGES.md. Proceeding..."
           fi
-  lock_file:
+  setlog-lock_file:
     runs-on: ubuntu-latest
     needs: [ setlog-check_pyproject_toml_changes, setlog-check_changes_md_changes ]
     steps:
