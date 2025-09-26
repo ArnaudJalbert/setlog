@@ -53,21 +53,21 @@ jobs:
     steps:
       - uses: actions/checkout@v4
       - uses: ./.github/actions/setup
-      - run: uv run ruff check ./apps/setlog/
+      - run: cd ./apps/setlog/; uv run ruff check
   setlog_ruff_format:
     runs-on: ubuntu-latest
     needs: [setlog_lock_file]
     steps:
       - uses: actions/checkout@v4
       - uses: ./.github/actions/setup
-      - run: uv run ruff format ./apps/setlog/
+      - run: cd ./apps/setlog/; uv run ruff format --check
   setlog_unit_tests:
     runs-on: ubuntu-latest
     needs: [ setlog_lock_file ]
     steps:
       - uses: actions/checkout@v4
       - uses: ./.github/actions/setup
-      - run: uv run pytest ./apps/setlog/tests/pebble/unit_tests -v --durations=0 --cov=src --cov-report=xml
+      - run: uv run pytest ./apps/setlog/tests/setlog/unit_tests -v --durations=0 --cov=src --cov-report=xml
       - name: Upload Coverage to Codecov
         uses: codecov/codecov-action@v4
         with:
