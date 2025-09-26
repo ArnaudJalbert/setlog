@@ -42,7 +42,7 @@ jobs:
           fi
   setlog_lock_file:
     runs-on: ubuntu-latest
-    needs: [ setlog_check_pyproject_toml_changes, setlog_check_changes_md_changes ]
+    needs: [setlog_check_pyproject_toml_changes, setlog_check_changes_md_changes]
     steps:
       - uses: actions/checkout@v4
       - uses: ./.github/actions/setup
@@ -63,7 +63,7 @@ jobs:
       - run: cd ./apps/setlog/; uv run ruff format --check
   setlog_unit_tests:
     runs-on: ubuntu-latest
-    needs: [ setlog_lock_file ]
+    needs: [setlog_lock_file]
     steps:
       - uses: actions/checkout@v4
       - uses: ./.github/actions/setup
@@ -73,8 +73,8 @@ jobs:
         with:
           token: ${{ secrets.CODECOV_TOKEN }}
   setlog_build:
-    runs-on: [ ubuntu-latest ]
-    needs: [ setlog_ruff_check, setlog_ruff_format, setlog_unit_tests]
+    runs-on: [ubuntu-latest]
+    needs: [setlog_ruff_check, setlog_ruff_format, setlog_unit_tests]
     steps:
       - uses: actions/checkout@v4
       - uses: ./.github/actions/setup
