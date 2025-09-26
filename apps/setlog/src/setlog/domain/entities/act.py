@@ -51,6 +51,9 @@ class Act(ABC):
     def __post_init__(self) -> None:
         """Post-initialization processing to validate attributes.
 
+        The following validations are performed:
+            - Ensures that `start_date` is not after `end_date` if both are provided.
+
         Raises:
             ValueError: If start_date is after end_date.
         """

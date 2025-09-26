@@ -1,10 +1,10 @@
-name: Python Code Quality
+name: setlog Code Quality and Build
 on:
   pull_request:
     branches:
       - main
 jobs:
-  check_pyproject_toml_changes:
+  setlog_check_pyproject_toml_changes:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
@@ -13,19 +13,19 @@ jobs:
       - name: Extract current version from pyproject.toml
         id: get_version
         run: |
-          VERSION=$(grep -Po '(?<=version = ")[^"]*' pyproject.toml)
+          VERSION=$(grep -Po '(?<=version = ")[^"]*' ./apps/setlog/pyproject.toml)
           echo "Current version: $VERSION"
           echo "version=$VERSION" >> "$GITHUB_ENV"
       - name: Check if pyproject.toml has changed
         run: |
           git fetch origin main
-          if git diff origin/main --exit-code -- pyproject.toml; then
+          if git diff origin/main --exit-code -- ./apps/setlog/pyproject.toml; then
             echo "The version in pyproject.toml must be incremented. Current version: $VERSION"
             exit 1
           else
             echo "Changes detected in pyproject.toml. Proceeding..."
           fi
-  check_changes_md_changes:
+  setlog_check_changes_md_changes:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
@@ -34,62 +34,48 @@ jobs:
       - name: Check if CHANGES.md has changed
         run: |
           git fetch origin main
-          if git diff origin/main --exit-code -- CHANGES.md; then
+          if git diff origin/main --exit-code -- ./apps/setlog/CHANGES.md; then
             echo "A changelog entry must be added to CHANGES.md."
             exit 1
           else
             echo "Changes detected in CHANGES.md. Proceeding..."
           fi
-  lock_file:
+  setlog_lock_file:
     runs-on: ubuntu-latest
-    needs: [check_pyproject_toml_changes, check_changes_md_changes]
+    needs: [setlog_check_pyproject_toml_changes, setlog_check_changes_md_changes]
     steps:
       - uses: actions/checkout@v4
       - uses: ./.github/actions/setup
-      - run: uv lock --locked
-  ruff_check:
+      - run: cd ./apps/setlog/; uv lock --locked
+  setlog_ruff_check:
     runs-on: ubuntu-latest
-    needs: [lock_file]
+    needs: [setlog_lock_file]
     steps:
       - uses: actions/checkout@v4
       - uses: ./.github/actions/setup
-      - run: uv run ruff check .
-  ruff_format:
+      - run: cd ./apps/setlog/; uv run ruff check
+  setlog_ruff_format:
     runs-on: ubuntu-latest
-    needs: [lock_file]
+    needs: [setlog_lock_file]
     steps:
       - uses: actions/checkout@v4
       - uses: ./.github/actions/setup
-      - run: uv run ruff format .
-  unit_tests:
+      - run: cd ./apps/setlog/; uv run ruff format --check
+  setlog_unit_tests:
     runs-on: ubuntu-latest
-    needs: [ lock_file ]
+    needs: [setlog_lock_file]
     steps:
       - uses: actions/checkout@v4
       - uses: ./.github/actions/setup
-      - run: uv run pytest ./tests/pebble/unit_tests -v --durations=0 --cov=src --cov-report=xml
+      - run: cd ./apps/setlog/; uv run pytest ./tests/setlog/unit_tests -v --durations=0 --cov=src --cov-report=xml
       - name: Upload Coverage to Codecov
         uses: codecov/codecov-action@v4
         with:
           token: ${{ secrets.CODECOV_TOKEN }}
-  integration_tests:
-    runs-on: ubuntu-latest
-    needs: [ lock_file ]
+  setlog_build:
+    runs-on: [ubuntu-latest]
+    needs: [setlog_ruff_check, setlog_ruff_format, setlog_unit_tests]
     steps:
       - uses: actions/checkout@v4
       - uses: ./.github/actions/setup
-      - name: Run integration tests
-        env: # Or as an environment variable
-          MONGO_PASSWORD: ${{ secrets.MONGO_PASSWORD }}
-        run: uv run pytest ./tests/pebble/integration_tests -v --durations=0 --cov=src --cov-report=xml
-      - name: Upload Coverage to Codecov
-        uses: codecov/codecov-action@v4
-        with:
-          token: ${{ secrets.CODECOV_TOKEN }}
-  build:
-    runs-on: [ ubuntu-latest ]
-    needs: [ ruff_check, ruff_format, unit_tests, integration_tests ]
-    steps:
-      - uses: actions/checkout@v4
-      - uses: ./.github/actions/setup
-      - run: uv build
+      - run: cd ./apps/setlog/; uv build
