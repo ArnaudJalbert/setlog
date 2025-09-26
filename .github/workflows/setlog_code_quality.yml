@@ -34,7 +34,7 @@ jobs:
       - name: Check if CHANGES.md has changed
         run: |
           git fetch origin main
-          if git diff origin/main --exit-code -- CHANGES.md; then
+          if git diff origin/main --exit-code -- ./apps/setlog/CHANGES.md; then
             echo "A changelog entry must be added to CHANGES.md."
             exit 1
           else
