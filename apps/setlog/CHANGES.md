@@ -1,5 +1,10 @@
 # Changelog
 
+## 0.9.1 - TAS-607 - 26-09-2025
+  - Add the CI pipeline to the `setlog` application.
+  - Move the test files to a separate `unit_tests` directory.
+  - Refactor the directory structure to enable testing of `setlog` as a package.
+
 ## 0.9.0 - TAS-607 - 25-09-2025
   - Improve the `Act` entity with additional attributes.
   - Improve the _optionality_ of the attributes of the `Act` entity.
