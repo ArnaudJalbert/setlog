@@ -1,5 +1,10 @@
 # Changelog
 
+## 0.3.0 - TAS-610 - 09-10-2025
+  - Add missing entities (Album, ExtendedPlay, Single, SoloArtist, RecordingAct, Track, Label, Genre, Location) to the entities module and __init__.
+  - Create and update unit tests for all entities, ensuring direct imports from the package.
+  - Improve test consistency and module exposure.
+
 ## 0.2.1 - TAS-607 - 26-09-2025
   - Add the CI pipeline to the `setlog` application.
   - Move the test files to a separate `unit_tests` directory.

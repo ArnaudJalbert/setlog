@@ -1,20 +1,22 @@
+from __future__ import annotations
+
 from dataclasses import dataclass
 
-from ..value_objects.common_types import Description, Name
+from ..value_objects.act_types import Description, Name
 
 
-@dataclass
+@dataclass(kw_only=True, slots=True)
 class Genre:
     """A Genre represents a category of music characterized by a particular style, form,
     or content.
 
     Attributes:
         name (Name): The name of the genre.
-        description (Description): A brief description of the genre.
+        description (Description | None): A brief description of the genre, optional.
     """
 
     name: Name
-    description: Description
+    description: Description | None = None
 
     def __hash__(self) -> int:
         """Generates a hash value for the Genre instance based on its attributes.
