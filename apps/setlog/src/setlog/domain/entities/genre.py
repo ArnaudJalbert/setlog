@@ -5,7 +5,7 @@ from dataclasses import dataclass
 from ..value_objects.act_types import Description, Name
 
 
-@dataclass
+@dataclass(kw_only=True, slots=True)
 class Genre:
     """A Genre represents a category of music characterized by a particular style, form,
     or content.

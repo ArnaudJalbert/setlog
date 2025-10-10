@@ -3,7 +3,7 @@ from __future__ import annotations
 from dataclasses import dataclass
 
 
-@dataclass
+@dataclass(kw_only=True, slots=True)
 class Location:
     """A Location represents a geographical place, typically used to denote the origin
     of a musical act or event. It can also be associated with record labels or

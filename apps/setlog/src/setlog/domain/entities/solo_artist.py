@@ -21,7 +21,8 @@ class SoloArtist(RecordingAct):
     Attributes:
         Inherits all attributes from the Act class.
         real_name (Name): The real name of the artist. This attribute is mandatory.
-        birthdate (Optional[datetime]): The birthdate of the artist. This attribute is optional and may be None if the birthdate is unknown.
+        birthdate (Optional[datetime]): The birthdate of the artist.
+            This attribute is optional and may be None if the birthdate is unknown.
     """
 
     real_name: Name

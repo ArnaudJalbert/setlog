@@ -1,9 +1,11 @@
 from __future__ import annotations
 
 from dataclasses import dataclass
+
 from .record import Record
 
-@dataclass
+
+@dataclass(kw_only=True, slots=True)
 class ExtendedPlay(Record):
     """An Extended Play (EP) represents a musical recording that contains more
     tracks than a single, but is usually unqualified as an album or LP.
