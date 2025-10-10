@@ -1,9 +1,10 @@
+from __future__ import annotations
+
 from abc import ABC
 from dataclasses import dataclass, field
 from datetime import datetime
-from typing import Optional
 
-from ..value_objects.common_types import ID, Description, Name
+from ..value_objects.act_types import Description, Name
 from .genre import Genre
 from .location import Location
 
@@ -21,30 +22,21 @@ class Act(ABC):
     and other musical entities.
 
     Attributes:
-        id (ID): A unique identifier for the act. This attribute is mandatory.
         name (Name): The name of the act. This attribute is mandatory.
-        description (Description): A brief description of the act. This attribute is
-            optional and defaults to an empty string.
-        origin (Optional[Location | None]): The geographical origin of the act.
-            This attribute is optional and can be None if the origin is unknown.
-        start_date (Optional[datetime | None]): The date when the act was formed
-            or started. This attribute is optional and can be None if the start
-            date is unknown.
-        end_date (Optional[datetime | None]): The date when the act disbanded or ended.
-            This attribute is optional and can be None if the act is still active or
-            if the end date is unknown.
+        description (Description | None): A brief description of the act.
+        origin (Location | None): The geographical origin of the act.
+        start_date (datetime | None): The date when the act was formed or started.
+        end_date (datetime | None): The date when the act disbanded or ended,
+            if applicable.
         aliases (set[str]): A set of alternative names or aliases for the act.
-            This attribute is optional and defaults to an empty set.
         genres (set[Genre]): A set of musical genres associated with the act.
-            This attribute is optional and defaults to an empty set.
     """
 
-    id: ID
     name: Name
-    description: Optional[Description] = str()
-    origin: Optional[Location | None] = None
-    start_date: Optional[datetime | None] = None
-    end_date: Optional[datetime | None] = None
+    description: Description | None = None
+    origin: Location | None = None
+    start_date: datetime | None = None
+    end_date: datetime | None = None
     aliases: set[str] = field(default_factory=set)
     genres: set[Genre] = field(default_factory=set)
 

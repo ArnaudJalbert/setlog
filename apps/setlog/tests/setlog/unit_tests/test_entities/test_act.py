@@ -1,9 +1,7 @@
 from datetime import datetime
 
-from setlog.domain.entities import Act
-from setlog.domain.entities.genre import Genre
-from setlog.domain.entities.location import Location
-from setlog.domain.value_objects.common_types import Description, Name
+from setlog.domain.entities import Act, Genre, Location
+from setlog.domain.value_objects import Description, Name
 
 
 class ConcreteAct(Act):
@@ -13,10 +11,9 @@ class ConcreteAct(Act):
 
 
 def test_act_entity_minimal_attributes() -> None:
-    act = ConcreteAct(id="act123", name="The Testers")
-    assert act.id == "act123"
+    act = ConcreteAct(name="The Testers")
     assert act.name == "The Testers"
-    assert act.description == ""
+    assert act.description is None
     assert act.aliases == set()
     assert act.genres == set()
     assert act.origin is None
@@ -34,7 +31,6 @@ def test_act_entity_all_attributes() -> None:
 
     # Create the act with all attributes
     act = ConcreteAct(
-        id="act123",
         name="The Testers",
         description="A test band",
         start_date=start_date,
@@ -45,7 +41,6 @@ def test_act_entity_all_attributes() -> None:
     )
 
     # Assertions
-    assert act.id == "act123"
     assert act.name == "The Testers"
     assert act.description == "A test band"
     assert act.aliases == ["Test Band", "The Testing Group"]
@@ -58,7 +53,6 @@ def test_act_entity_all_attributes() -> None:
 def test_start_date_after_end_date() -> None:
     try:
         ConcreteAct(
-            id="act123",
             name="The Testers",
             start_date=datetime(2021, 1, 1),
             end_date=datetime(2020, 1, 1),
