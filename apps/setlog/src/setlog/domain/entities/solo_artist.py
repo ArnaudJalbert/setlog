@@ -9,7 +9,7 @@ from .recording_act import RecordingAct
 
 @dataclass(kw_only=True, slots=True)
 class SoloArtist(RecordingAct):
-    """A solo arist represents a singular musical performer.
+    """A solo artist represents a singular musical performer.
 
     The SoloArtist entity inherits from the RecordingAct class, which encapsulates
     common attributes shared among all recording acts, such as the act's name and
