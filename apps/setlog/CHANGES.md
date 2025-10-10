@@ -1,6 +1,6 @@
 # Changelog
 
-## 0.3.1 - TAS-610 - 09-10-2025
+## 0.3.0 - TAS-610 - 09-10-2025
   - Add missing entities (Album, ExtendedPlay, Single, SoloArtist, RecordingAct, Track, Label, Genre, Location) to the entities module and __init__.
   - Create and update unit tests for all entities, ensuring direct imports from the package.
   - Improve test consistency and module exposure.
