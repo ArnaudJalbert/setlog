@@ -15,7 +15,7 @@ class SoloArtist(RecordingAct):
     common attributes shared among all recording acts, such as the act's name and
     any associated metadata.
 
-    The recoding artist is characterized by attributes specific to
+    The recording artist is characterized by attributes specific to
     individual performers, such as their real name and birthdate.
 
     Attributes:
